@@ -28,7 +28,7 @@ const store = mongoStore.create({
         secret:'samplesecret!'
     }
 })
-//configurations for session
+//configurations for session new comment
 const sessionConfig = {
     store,
     name:'session',
