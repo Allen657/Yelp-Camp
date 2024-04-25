@@ -1,7 +1,3 @@
-if(process.env.NODE_ENV !=='production'){
-    require('dotenv').config();
-}
-
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -25,7 +21,7 @@ const store = mongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto:{
-        secret:'samplesecret!'
+        secret:process.env.SECRET
     }
 })
 //configurations for session new comment
