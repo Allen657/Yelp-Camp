@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !=='production'){
+    require('dotenv').config();
+}
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -16,24 +20,25 @@ const passportLocal = require('passport-local');
 const User = require('./model/user');
 const helmet = require('helmet');
 const dbUrl = process.env.MONGODB_URL;
+const secret = process.env.SECRET
 const mongoStore = require('connect-mongo');
 const store = mongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto:{
-        secret:process.env.SECRET
+        secret
     }
 })
 //configurations for session new comment
 const sessionConfig = {
     store,
     name:'session',
-    secret: process.env.SECRET,
+    secret,
     resave:false,
     saveUninitialized:true,
     cookie:{
         httpOnly: true,
-        secure:true,
+        // secure:true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
